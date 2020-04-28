@@ -18,8 +18,6 @@ public class Checker {
 	
 	/**
 	 * Constructor for Checkers.
-	 * @param row The row of the checker on the grid.
-	 * @param col The column of the checker on the grid.
 	 * @param state The state of the checker (empty, player1, player2).
 	 */
 	public Checker(CheckerState state) {
