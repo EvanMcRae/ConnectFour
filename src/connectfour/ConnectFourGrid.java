@@ -1,12 +1,31 @@
 package connectfour;
 
-import connectfour.Checker.CheckerState;
-
 /**
  * A class for a grid of Checkers with a set width and height.
  */
 public class ConnectFourGrid {
 
+	/**
+	 * @author EvanMcRae
+	 * Checker implementation.
+	 */
+	public enum Checker {
+		EMPTY("*"), PLAYER1("1"), PLAYER2("2");
+		
+		/**
+		 * The string displayed for the checker on the grid.
+		 */
+		private final String symbol;
+		
+		private Checker(String symbol) {
+			this.symbol = symbol;
+		}
+		
+		public String toString() {
+			return symbol;
+		}
+	}
+	
 	public Checker[][] grid;
 	private int width, height;
 	
@@ -21,21 +40,20 @@ public class ConnectFourGrid {
 		grid = new Checker[height][width];
 		
 		// generates grid of empty checkers
-		// TODO make sure this actually generates coordinates in the way we want it to
 		for (int i = height-1; i >= 0; i--) {
 			for (int j = 0; j < width; j++) {
-				grid[i][j] = new Checker(CheckerState.EMPTY);
+				grid[i][j] = Checker.EMPTY;
 			}
 		}
 	}
 	
 	/**
 	 * Places a checker at a given column in the grid.
-	 * @param state The state of the checker (player1, player2)
+	 * @param checker The checker to place.
 	 * @param col The column to place the checker at.
 	 * TODO maybe move this kind of stuff to player class?
 	 */
-	public void placeChecker(CheckerState state, int col) {
+	public void placeChecker(Checker checker, int col) {
 		// checks for invalid column
 		if (col-1 > width || col-1 < 0) {
 			System.out.println("Invalid column!");
@@ -44,8 +62,8 @@ public class ConnectFourGrid {
 		
 		// checks for lowest empty column
 		for (int i = 0; i < height; i++) {
-			if (grid[i][col-1].getState() == CheckerState.EMPTY) {
-				grid[i][col-1].setState(state);
+			if (grid[i][col-1] == Checker.EMPTY) {
+				grid[i][col-1] = checker;
 				return;
 			}
 		}
@@ -60,12 +78,12 @@ public class ConnectFourGrid {
 		// prints out grid
 		for (int i = height - 1; i >= 0; i--) {
 			for (int j = 0; j < width; j++) {
-				if (grid[i][j].getState() == CheckerState.EMPTY)
-					ret += "* ";
-				else if (grid[i][j].getState() == CheckerState.PLAYER1)
-					ret += "1 ";
-				else if (grid[i][j].getState() == CheckerState.PLAYER2)
-					ret += "2 ";
+				if (grid[i][j] == Checker.EMPTY)
+					ret += Checker.EMPTY + " ";
+				else if (grid[i][j] == Checker.PLAYER1)
+					ret += Checker.PLAYER1 + " ";
+				else if (grid[i][j] == Checker.PLAYER2)
+					ret += Checker.PLAYER2 + " ";
 			}
 			ret += "\n";
 		}
