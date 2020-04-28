@@ -9,5 +9,20 @@ public class Tester {
 		System.out.println(grid);
 		grid.placeChecker(CheckerState.PLAYER1, 3);
 		System.out.println(grid);
+		grid.placeChecker(CheckerState.PLAYER2, 3);
+		System.out.println(grid);
+		grid.placeChecker(CheckerState.PLAYER1, 3);
+		System.out.println(grid);
+		grid.placeChecker(CheckerState.PLAYER2, 3);
+		System.out.println(grid);
+		grid.placeChecker(CheckerState.PLAYER1, 3);
+		System.out.println(grid);
+		grid.placeChecker(CheckerState.PLAYER2, 3);
+		System.out.println(grid);
+		grid.placeChecker(CheckerState.PLAYER1, 3);
+		System.out.println(grid);
+		grid.placeChecker(CheckerState.PLAYER2, 0);
+		grid.placeChecker(CheckerState.PLAYER1, 9);
+		System.out.println(grid);
 	}
 }

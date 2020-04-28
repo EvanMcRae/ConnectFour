@@ -33,13 +33,25 @@ public class ConnectFourGrid {
 	 * Places a checker at a given column in the grid.
 	 * @param state The state of the checker (player1, player2)
 	 * @param col The column to place the checker at.
+	 * TODO maybe move this kind of stuff to player class?
 	 */
 	public void placeChecker(CheckerState state, int col) {
-		//TODO add a check for empty grid positions and place at lowest empty one (rn places at height 0)
-		//TODO add a check for full column
-		//TODO add a check for valid column (can't use negatives or anything over width)
-		//TODO maybe move this kind of stuff to player class?
-		grid[0][col-1].setState(state);
+		// checks for invalid column
+		if (col-1 > width || col-1 < 0) {
+			System.out.println("Invalid column!");
+			return;
+		}
+		
+		// checks for lowest empty column
+		for (int i = 0; i < height; i++) {
+			if (grid[i][col-1].getState() == CheckerState.EMPTY) {
+				grid[i][col-1].setState(state);
+				return;
+			}
+		}
+		
+		// if previous check fails
+		System.out.println("The column is full!");
 	}
 	
 	public String toString() {
