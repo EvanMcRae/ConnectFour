@@ -1,4 +1,5 @@
+package connectfour;
 
 public class ConnectFourPlayer {
-	//hi devon
+	
 }
