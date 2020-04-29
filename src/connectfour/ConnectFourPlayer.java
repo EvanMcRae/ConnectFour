@@ -30,14 +30,19 @@ public class ConnectFourPlayer {
 	 */
 	public void play() {
 		System.out.println("Enter a column to place your checker in.");
-		int col = scan.nextInt();
-		int row = playGrid.placeChecker(checker, col);
-		if (row == -1) {
+		try {
+			int col = scan.nextInt();
+			int row = playGrid.placeChecker(checker, col);
+			if (row == -1) {
+				play();
+			} else {
+				System.out.println(name + " played a checker at " + col + "!");
+				System.out.println(playGrid.toString());
+			}
+		} catch (java.util.InputMismatchException e) {
+			System.out.println("Please enter a valid number.");
+			scan.nextLine();
 			play();
-		} else {
-			System.out.println(name + " played a checker at " + col + "!");
-			System.out.println(playGrid.toString());
 		}
-		
 	}
 }
