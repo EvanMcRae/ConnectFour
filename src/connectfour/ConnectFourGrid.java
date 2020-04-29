@@ -10,7 +10,7 @@ public class ConnectFourGrid {
 	 * Checker implementation.
 	 */
 	public enum Checker {
-		EMPTY("*"), PLAYER1("1"), PLAYER2("2");
+		EMPTY("\u2B55\u200A"), PLAYER1("\033[31m\u2B24\u200A"), PLAYER2("\033[34m\u2B24\u200A");
 		
 		/**
 		 * The string displayed for the checker on the grid.
@@ -78,12 +78,7 @@ public class ConnectFourGrid {
 		// prints out grid
 		for (int i = height - 1; i >= 0; i--) {
 			for (int j = 0; j < width; j++) {
-				if (grid[i][j] == Checker.EMPTY)
-					ret += Checker.EMPTY + " ";
-				else if (grid[i][j] == Checker.PLAYER1)
-					ret += Checker.PLAYER1 + " ";
-				else if (grid[i][j] == Checker.PLAYER2)
-					ret += Checker.PLAYER2 + " ";
+				ret += grid[i][j] + " \033[37m";
 			}
 			ret += "\n";
 		}
