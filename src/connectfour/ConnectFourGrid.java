@@ -78,12 +78,7 @@ public class ConnectFourGrid {
 		// prints out grid
 		for (int i = height - 1; i >= 0; i--) {
 			for (int j = 0; j < width; j++) {
-				if (grid[i][j] == Checker.EMPTY)
-					ret += Checker.EMPTY + " ";
-				else if (grid[i][j] == Checker.PLAYER1)
-					ret += Checker.PLAYER1 + " ";
-				else if (grid[i][j] == Checker.PLAYER2)
-					ret += Checker.PLAYER2 + " ";
+				ret += grid[i][j] + " ";
 			}
 			ret += "\n";
 		}
