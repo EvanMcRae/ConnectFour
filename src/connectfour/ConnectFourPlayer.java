@@ -1,6 +1,6 @@
 package connectfour;
-import java.util.Scanner;
 
+import java.util.Scanner;
 import connectfour.ConnectFourGrid.Checker;
 
 /**
@@ -9,9 +9,9 @@ import connectfour.ConnectFourGrid.Checker;
 public class ConnectFourPlayer {
 	
 	private String name;
-	private ConnectFourGrid playGrid;
+	private ConnectFourGrid grid;
 	private Checker checker;
-	Scanner scan = new Scanner(System.in);
+	private final Scanner scan = new Scanner(System.in);
 	
 	/**
 	 * Constructor for players.
@@ -19,10 +19,10 @@ public class ConnectFourPlayer {
 	 * @param grid The active instance of grid.
 	 * @param check The player's checker.
 	 */
-	public ConnectFourPlayer(String name, ConnectFourGrid grid, Checker check ) {
+	public ConnectFourPlayer(String name, ConnectFourGrid grid, Checker checker) {
 		this.name = name;
-		playGrid = grid;
-		checker = check;
+		this.grid = grid;
+		this.checker = checker;
 	}
 	
 	/**
@@ -32,12 +32,12 @@ public class ConnectFourPlayer {
 		System.out.println("Enter a column to place your checker in.");
 		try {
 			int col = scan.nextInt();
-			int row = playGrid.placeChecker(checker, col);
+			int row = grid.placeChecker(checker, col);
 			if (row == -1) {
 				play();
 			} else {
 				System.out.println(name + " played a checker at " + col + "!");
-				System.out.println(playGrid.toString());
+				System.out.println(grid.toString());
 			}
 		} catch (java.util.InputMismatchException e) {
 			System.out.println("Please enter a valid number.");
@@ -45,4 +45,5 @@ public class ConnectFourPlayer {
 			play();
 		}
 	}
+	
 }
