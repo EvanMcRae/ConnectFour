@@ -21,6 +21,9 @@ public class ConnectFourGrid {
 			this.symbol = symbol;
 		}
 		
+		/**
+		 * Outputs symbol for checker.
+		 */
 		public String toString() {
 			return symbol;
 		}
@@ -51,26 +54,45 @@ public class ConnectFourGrid {
 	 * Places a checker at a given column in the grid.
 	 * @param checker The checker to place.
 	 * @param col The column to place the checker at.
+	 * @return The row the checker was placed at (-1 if failed).
 	 */
-	public void placeChecker(Checker checker, int col) {
+	public int placeChecker(Checker checker, int col) {
 		// checks for invalid column
 		if (col > width || col-1 < 0) {
 			System.out.println("Error: Invalid column! Please try again.");
-			return;
+			return -1;
 		}
 		
 		// checks for lowest empty column
 		for (int i = 0; i < height; i++) {
 			if (grid[i][col-1] == Checker.EMPTY) {
 				grid[i][col-1] = checker;
-				return;
+				return i+1;
 			}
 		}
 		
 		// if previous check fails
 		System.out.println("Error: The column is full! Please try again.");
+		return -1;
 	}
 	
+	/**
+	 * @return if the grid has been filled.
+	 */
+	public boolean isFull() {
+		for (int i = height-1; i >= 0; i--) {
+			for (int j = 0; j < width; j++) {
+				// if any empty spots found, grid is not full
+				if (grid[i][j] == Checker.EMPTY)
+					return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * Outputs whole grid.
+	 */
 	public String toString() {
 		String ret = "";
 		
