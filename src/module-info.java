@@ -1,0 +1,3 @@
+module ConnectFour {
+	exports connectfour;
+}
