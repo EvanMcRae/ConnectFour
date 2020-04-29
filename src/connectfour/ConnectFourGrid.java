@@ -51,12 +51,11 @@ public class ConnectFourGrid {
 	 * Places a checker at a given column in the grid.
 	 * @param checker The checker to place.
 	 * @param col The column to place the checker at.
-	 * TODO maybe move this kind of stuff to player class?
 	 */
 	public void placeChecker(Checker checker, int col) {
 		// checks for invalid column
-		if (col-1 > width || col-1 < 0) {
-			System.out.println("Invalid column!");
+		if (col > width || col-1 < 0) {
+			System.out.println("Error: Invalid column! Please try again.");
 			return;
 		}
 		
@@ -69,7 +68,7 @@ public class ConnectFourGrid {
 		}
 		
 		// if previous check fails
-		System.out.println("The column is full!");
+		System.out.println("Error: The column is full! Please try again.");
 	}
 	
 	public String toString() {

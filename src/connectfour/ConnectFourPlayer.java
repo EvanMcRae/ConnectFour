@@ -22,7 +22,7 @@ public class ConnectFourPlayer {
 		playGrid.placeChecker(checker, col);
 		String after = playGrid.toString();
 		if(before.equals(after)) {
-			System.out.println("Error in placing the checker. Please enter a valid column.");
+//			System.out.println("Error in placing the checker. Please enter a valid column.");
 			play();
 		}
 		else {
