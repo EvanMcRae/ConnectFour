@@ -31,6 +31,7 @@ public class ConnectFourGrid {
 	
 	public Checker[][] grid;
 	private int width, height;
+	private int winner;
 	
 	/**
 	 * Constructor for ConnectFourGrids.
@@ -40,9 +41,10 @@ public class ConnectFourGrid {
 	public ConnectFourGrid(int width, int height) {
 		this.width = width;
 		this.height = height;
-		grid = new Checker[height][width];
+		winner = 0;
 		
 		// generates grid of empty checkers
+		grid = new Checker[height][width];
 		for (int i = height-1; i >= 0; i--) {
 			for (int j = 0; j < width; j++) {
 				grid[i][j] = Checker.EMPTY;
@@ -91,15 +93,37 @@ public class ConnectFourGrid {
 	}
 	
 	/**
+	 * Checks for four checkers in a row from any checker on the grid.
+	 * Updates winner variable depending on output.
+	 * @param row The row of the most recently placed checker.
+	 * @param col The column of the most recently placed checker.
+	 */
+	public void fourInARow(int row, int col) {
+		// TODO add four in a row checking logic here
+		winner = 0;
+	}
+	
+	/**
+	 * Indicates the winner for this grid.
+	 * Updates when {@link #fourInARow(int, int)} is called.
+	 * @return 0 if no winner, 1 if player1, 2 if player2
+	 */
+	public int getWinner() {
+		return winner;
+	}
+	
+	/**
 	 * Outputs whole grid.
 	 */
 	public String toString() {
-		String ret = "";
+		String ret = ConnectFourGame.darkTheme() ? "\033[37m" : "\033[30m";
 		
 		// prints out grid
 		for (int i = height - 1; i >= 0; i--) {
 			for (int j = 0; j < width; j++) {
-				ret += grid[i][j] + " \033[37m";
+				ret += grid[i][j];
+				// changes color from white to black depending on dark theme setting
+				ret += ConnectFourGame.darkTheme() ? " \033[37m" : " \033[30m";
 			}
 			ret += "\n";
 		}
@@ -108,7 +132,7 @@ public class ConnectFourGrid {
 		for (int i = 0; i < width; i++) {
 			ret += i+1 + " ";
 		}
-		ret += "\n";
+		ret += "\n\033[39m";
 		
 		return ret;
 	}

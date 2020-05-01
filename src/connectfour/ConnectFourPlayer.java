@@ -46,4 +46,11 @@ public class ConnectFourPlayer {
 		}
 	}
 	
+	/**
+	 * @return The player's name.
+	 */
+	public String getName() {
+		return name;
+	}
+	
 }
