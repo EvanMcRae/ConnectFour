@@ -24,7 +24,8 @@ public class ConnectFourGame {
 		// main loop
 		while (!grid.isFull() && grid.getWinner() == 0) {
 			player1.play();
-			if (grid.getWinner() != 0)
+			// has to check between turns too
+			if (grid.isFull() || grid.getWinner() != 0)
 				break;
 			player2.play();
 		}
