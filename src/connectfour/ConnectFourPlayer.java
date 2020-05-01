@@ -29,14 +29,14 @@ public class ConnectFourPlayer {
 	 * Allows player to place down a checker.
 	 */
 	public void play() {
-		System.out.println("Enter a column to place your checker in.");
+		System.out.println(name + ": Enter a column to place your checker in.");
 		try {
 			int col = scan.nextInt();
 			int row = grid.placeChecker(checker, col);
 			if (row == -1) {
 				play();
 			} else {
-				System.out.println(name + " played a checker at " + col + "!");
+				System.out.println(name + " placed a checker at " + col + "!");
 				grid.fourInARow(row, col);
 				System.out.println(grid.toString());
 			}
