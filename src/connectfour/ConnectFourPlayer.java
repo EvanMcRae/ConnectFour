@@ -37,7 +37,7 @@ public class ConnectFourPlayer {
 				play();
 			} else {
 				System.out.println(name + " placed a checker at " + col + "!");
-				grid.fourInARow(row, col);
+				grid.fourInARow(row-1, col-1);
 				System.out.println(grid.toString());
 			}
 		} catch (java.util.InputMismatchException e) {

@@ -93,142 +93,107 @@ public class ConnectFourGrid {
 	}
 	
 	/**
+	 * @author Devon
 	 * Checks for four checkers in a row from any checker on the grid.
 	 * Updates winner variable depending on output.
 	 * @param row The row of the most recently placed checker.
 	 * @param col The column of the most recently placed checker.
 	 */
 	public void fourInARow(int row, int col) {
-		// TODO add four in a row checking logic here
-		winner = 0;
-		//since the inputed column is 1 more than index
-		col--;
-		row--;
-		boolean horizontal = false, vertical = false, diagonalRight = false, diagonalLeft = false;
-		if(horizontal == false) {
-			int ogRow = row;
-			int ogCol = col;
-			int inRow = 1;
+		winner = 0; // stays 0 unless otherwise updated
+		
+		int ogRow = row, ogCol = col, inRow = 1;
+		
+		/* Horizontal */
+		if (inRow < 4) {
 			col--;
-			//Changed from greater than t greater/equal because wouldn't count fartherst left
-			while(col >= 0 && grid[row][col] == grid[ogRow][ogCol]) {
+			while (col >= 0 && grid[row][col] == grid[ogRow][ogCol]) {
 				inRow++;
 				col--;
 			}
+			
 			col = ogCol +1;
-			while(col < grid[0].length && grid[row][col] == grid[ogRow][ogCol]) {
+			while (col < grid[0].length && grid[row][col] == grid[ogRow][ogCol]) {
 				inRow++;
 				col++;
 			}
-			if(inRow >=4) {
-				if(grid[ogRow][ogCol] == Checker.PLAYER1) {
-					winner = 1;
-				}
-				else if(grid[ogRow][ogCol] == Checker.PLAYER2) {
-					winner = 2;
-				}
-			}
-			//resets values to original row and column
+		}
+			
+		/* Vertical */
+		if (inRow < 4) {
+			// resets values
 			row = ogRow;
 			col = ogCol;
+			inRow = 1;
 			
-		}
-		//following code is for a vertical check
-		if(vertical == false) {
-			
-			int ogRow = row;
-			int ogCol = col;
-			int inRow = 1;
 			row--;
-			//Changed from greater than t greater/equal because wouldn't count fartherst left
-			while(row >= 0 && grid[row][col] == grid[ogRow][ogCol]) {
+			while (row >= 0 && grid[row][col] == grid[ogRow][ogCol]) {
 				inRow++;
 				row--;
 			}
-			//row = ogRow +1;
 			
-			if(inRow >=4) {
-				if(grid[ogRow][ogCol] == Checker.PLAYER1) {
-					winner = 1;
-				}
-				else if(grid[ogRow][ogCol] == Checker.PLAYER2) {
-					winner = 2;
-				}
-				
+			row = ogRow +1;
+			while (row < grid.length && grid[row][col] == grid[ogRow][ogCol]) {
+				inRow++;
+				row++;
 			}
-			
-			//resets values to original row and column
+		}
+		
+		/* Left-down diagonal */
+		if (inRow < 4) {
+			// resets values
 			row = ogRow;
 			col = ogCol;
+			inRow = 1;
 			
-		}
-		//Checks for the direction in which the diagonal is left down
-		if(diagonalLeft == false) {
-			int ogRow = row;
-			int ogCol = col;
-			int inRow = 1;
 			col--;
 			row--;
-			//Changed from greater than t greater/equal because wouldn't count fartherst left
-			while(col >= 0 && row>=0 && grid[row][col] == grid[ogRow][ogCol]) {
+			while (col >= 0 && row >= 0 && grid[row][col] == grid[ogRow][ogCol]) {
 				inRow++;
 				col--;
 				row--;
 			}
+			
 			col = ogCol +1;
 			row = ogRow +1;
-			while(col < grid[0].length && row < grid.length && grid[row][col] == grid[ogRow][ogCol]) {
+			while (col < grid[0].length && row < grid.length && grid[row][col] == grid[ogRow][ogCol]) {
 				inRow++;
 				col++;
 				row++;
 			}
-			if(inRow >=4) {
-				if(grid[ogRow][ogCol] == Checker.PLAYER1) {
-					winner = 1;
-				}
-				else if(grid[ogRow][ogCol] == Checker.PLAYER2) {
-					winner = 2;
-				}
-			}
-			//resets values to original row and column
-			row = ogRow;
-			col = ogCol;
-			
 		}
 		
-		//Checks for Right-Up Diagonal
-		
-		if(diagonalRight == false) {
-			int ogRow = row;
-			int ogCol = col;
-			int inRow = 1;
+		/* Right-up diagonal */
+		if (inRow < 4) {
+			// resets values
+			row = ogRow;
+			col = ogCol;
+			inRow = 1;
+			
 			col--;
 			row++;
-			//Changed from greater than t greater/equal because wouldn't count fartherst left
-			while(col >= 0 && row< grid.length && grid[row][col] == grid[ogRow][ogCol]) {
+			while (col >= 0 && row < grid.length && grid[row][col] == grid[ogRow][ogCol]) {
 				inRow++;
 				col--;
 				row++;
 			}
+			
 			col = ogCol +1;
 			row = ogRow -1;
-			while(col < grid[0].length && row >= 0 && grid[row][col] == grid[ogRow][ogCol]) {
+			while (col < grid[0].length && row >= 0 && grid[row][col] == grid[ogRow][ogCol]) {
 				inRow++;
 				col++;
 				row--;
 			}
-			if(inRow >=4) {
-				if(grid[ogRow][ogCol] == Checker.PLAYER1) {
-					winner = 1;
-				}
-				else if(grid[ogRow][ogCol] == Checker.PLAYER2) {
-					winner = 2;
-				}
+		}
+		
+		/* Determine winner */
+		if (inRow >= 4) {
+			if (grid[ogRow][ogCol] == Checker.PLAYER1) {
+				winner = 1;
+			} else if (grid[ogRow][ogCol] == Checker.PLAYER2) {
+				winner = 2;
 			}
-			//resets values to original row and column
-			row = ogRow;
-			col = ogCol;
-			
 		}
 	}
 	
