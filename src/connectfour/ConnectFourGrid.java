@@ -132,11 +132,7 @@ public class ConnectFourGrid {
 				row--;
 			}
 			
-			row = ogRow +1;
-			while (row < grid.length && grid[row][col] == grid[ogRow][ogCol]) {
-				inRow++;
-				row++;
-			}
+			// Don't need backwards check because checkers stack up only
 		}
 		
 		/* Left-down diagonal */
