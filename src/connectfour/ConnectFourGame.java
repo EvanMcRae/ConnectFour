@@ -37,17 +37,17 @@ public class ConnectFourGame {
 	 * TODO allow players to choose checker color?
 	 */
 	public ConnectFourGame() {
-		// General info/instructions
+		/* General info/instructions */
 		System.out.println("  / ____|                          | |   |  ____|              ");
 		System.out.println(" | |     ___  _ __  _ __   ___  ___| |_  | |__ ___  _   _ _ __ ");
 		System.out.println(" | |    / _ \\| '_ \\| '_ \\ / _ \\/ __| __| |  __/ _ \\| | | | '__|");
 		System.out.println(" | |___| (_) | | | | | | |  __/ (__| |_  | | | (_) | |_| | |   ");
 		System.out.println("  \\_____\\___/|_| |_|_| |_|\\___|\\___|\\__| |_|  \\___/ \\__,_|_|   ");
-		System.out.println("Welcome to Connect Four! This is a two-player game where each player");
+		System.out.println("\nWelcome to Connect Four! This is a two-player game where each player");
 		System.out.println("tries to place four checkers in a row - horizontally, vertically, or");
 		System.out.println("diagonally - and prevent the other player from doing so as well.");
 		
-		// Grid creation (TODO move to grid class?)
+		/* Grid creation (TODO move to grid class?) */
 		System.out.println("\nWhat size grid would you like to play on?\nEnter a number for the width:");
 		int width = -1;
 		do {
@@ -83,11 +83,11 @@ public class ConnectFourGame {
 		grid = new ConnectFourGrid(width, height);
 		System.out.println();
 		
-		// Player creation
+		/* Player creation */
 		player1 = new ConnectFourPlayer(grid, Checker.PLAYER1);
 		player2 = new ConnectFourPlayer(grid, Checker.PLAYER2);
 		
-		// Dark theme option
+		/* Dark theme option */
 		System.out.println("\nAre you playing on dark theme? Enter Y or N:");
 		String response = null;
 		do {
