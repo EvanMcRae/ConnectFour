@@ -48,20 +48,17 @@ public class ConnectFourPlayer {
 	 */
 	public void play() {
 		System.out.println(name + ": Enter a column to place your checker in.");
-		try {
-			int col = scan.nextInt();
-			int row = grid.placeChecker(checker, col);
-			if (row == -1) {
-				play();
-			} else {
-				System.out.println(name + " placed a checker at column " + col + "!");
-				grid.fourInARow(row-1, col-1);
-				System.out.println(grid.toString());
-			}
-		} catch (java.util.InputMismatchException e) {
-			System.out.println("Please enter a valid number.");
-			scan.nextLine();
+		char col = scan.next().toUpperCase().charAt(0);
+		while (col < 65 || col > 90) {
+			System.out.println("Please enter a valid letter.");
+			col = scan.next().toUpperCase().charAt(0);
+		}
+		int row = grid.placeChecker(checker, col-64);
+		if (row == -1) {
 			play();
+		} else {
+			System.out.println(name + " placed a checker at column " + col + "!");
+			System.out.println(grid.toString());
 		}
 	}
 	

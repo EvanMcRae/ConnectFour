@@ -65,10 +65,12 @@ public class ConnectFourGrid {
 			return -1;
 		}
 		
-		// checks for lowest empty column
+		// checks for lowest empty row
 		for (int i = 0; i < height; i++) {
 			if (grid[i][col-1] == Checker.EMPTY) {
 				grid[i][col-1] = checker;
+				// does win check
+				fourInARow(i, col-1);
 				return i+1;
 			}
 		}
@@ -218,9 +220,9 @@ public class ConnectFourGrid {
 			ret += "\n";
 		}
 		
-		// prints out column numbers
+		// prints out column letters
 		for (int i = 0; i < width; i++) {
-			ret += i+1 + " ";
+			ret += (char) (65+i) + " ";
 		}
 		ret += "\n\033[39m";
 		

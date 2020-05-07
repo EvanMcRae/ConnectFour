@@ -32,12 +32,8 @@ public class ConnectFourGame {
 	
 	/**
 	 * General constructor for the Connect Four game.
-	 * Prints game instructions and allows user to input grid size,
-	 * player names, and other game configuration options.
-	 * TODO allow players to choose checker color?
 	 */
 	public ConnectFourGame() {
-		/* General info/instructions */
 		System.out.println("  / ____|                          | |   |  ____|              ");
 		System.out.println(" | |     ___  _ __  _ __   ___  ___| |_  | |__ ___  _   _ _ __ ");
 		System.out.println(" | |    / _ \\| '_ \\| '_ \\ / _ \\/ __| __| |  __/ _ \\| | | | '__|");
@@ -46,36 +42,44 @@ public class ConnectFourGame {
 		System.out.println("\nWelcome to Connect Four! This is a two-player game where each player");
 		System.out.println("tries to place four checkers in a row - horizontally, vertically, or");
 		System.out.println("diagonally - and prevent the other player from doing so as well.");
-		
-		/* Grid creation (TODO move to grid class?) */
-		System.out.println("\nWhat size grid would you like to play on?\nEnter a number for the width:");
+		initialize();
+	}
+	
+	/**
+	 * Allows user to input grid size, player names,
+	 * and other game configuration options.
+	 * TODO allow players to choose checker color?
+	 */
+	public void initialize() {
+		/* Grid creation */
+		System.out.println("\nWhat size grid would you like to play on?\nEnter a number for the width (maximum: 26):");
 		int width = -1;
 		do {
 			try {
 				width = scan.nextInt();
-				if (width <= 0) {
-					System.out.println("Please enter a positive, non-zero number:");
+				if (width < 1 || width > 26) {
+					System.out.println("Please enter a number between 1 and 26:");
 					scan.nextLine();
 					width = -1;
 				}
 			} catch (java.util.InputMismatchException e) {
-				System.out.println("Please enter a valid number:");
+				System.out.println("Please enter a valid integer number:");
 				scan.nextLine();
 				width = -1;
 			}
 		} while (width == -1);
-		System.out.println("Enter a number for the height:");
+		System.out.println("Enter a number for the height (maximum: 26):");
 		int height = -1;
 		do {
 			try {
 				height = scan.nextInt();
-				if (height <= 0) {
-					System.out.println("Please enter a positive, non-zero number:");
+				if (height < 1 || height > 26) {
+					System.out.println("Please enter a number between 1 and 26:");
 					scan.nextLine();
 					height = -1;
 				}
 			} catch (java.util.InputMismatchException e) {
-				System.out.println("Please enter a valid number:");
+				System.out.println("Please enter a valid integer number:");
 				scan.nextLine();
 				height = -1;
 			}
@@ -89,13 +93,11 @@ public class ConnectFourGame {
 		
 		/* Dark theme option */
 		System.out.println("\nAre you playing on dark theme? Enter Y or N:");
-		String response = null;
-		do {
+		String response = scan.next();
+		while (!"YN".contains(response.toUpperCase())) {
+			System.out.println("Please enter Y or N:");
 			response = scan.next();
-			if (!"YN".contains(response.toUpperCase())) {
-				System.out.println("Please enter Y or N:");
-			}
-		} while (!"YN".contains(response.toUpperCase()));
+		}
 		darkTheme = response.toUpperCase().equals("Y");
 		
 		System.out.println("\nLet the game begin!\n");
@@ -106,7 +108,7 @@ public class ConnectFourGame {
 	 * Starts the game.
 	 */
 	public void start() {
-		// main loop
+		/* Main loop */
 		while (!grid.isFull() && grid.getWinner() == 0) {
 			player1.play();
 			// has to check between turns too
@@ -115,14 +117,25 @@ public class ConnectFourGame {
 			player2.play();
 		}
 		
-		// win checking
-		if (grid.getWinner() == 1) {
+		/* Win checking */
+		if (grid.getWinner() == 1)
 			System.out.println(player1.getName() + " wins!");
-		} else if (grid.getWinner() == 2) {
+		else if (grid.getWinner() == 2)
 			System.out.println(player2.getName() + " wins!");
-		} else {
+		else
 			System.out.println("It's a draw!");
+		
+		/* Play again */
+		System.out.println("\nWould you like to play again? Enter Y or N:");
+		String response = scan.next();
+		while (!"YN".contains(response.toUpperCase())) {
+			System.out.println("Please enter Y or N:");
+			response = scan.next();
 		}
+		if (response.toUpperCase().equals("Y"))
+			initialize();
+		else
+			System.out.println("Thanks for playing!");
 	}
 	
 	/**
