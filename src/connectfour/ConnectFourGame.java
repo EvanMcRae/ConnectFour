@@ -57,9 +57,7 @@ public class ConnectFourGame {
 	}
 	
 	/**
-	 * Allows user to input grid size, player names,
-	 * and other game configuration options.
-	 * TODO allow players to choose checker color?
+	 * Allows user to input grid size, player names, and other options.
 	 */
 	public void initialize() {
 		/* Grid creation */
