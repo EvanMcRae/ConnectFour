@@ -34,7 +34,17 @@ public class ConnectFourGame {
 	 * General constructor for the Connect Four game.
 	 */
 	public ConnectFourGame() {
-		System.out.print("\u001b[0m"); // ANSI reset
+		/* Dark theme option */
+		System.out.println("Are you playing on dark theme? Enter Y or N:");
+		String response = scan.next();
+		while (!"YN".contains(response.toUpperCase())) {
+			System.out.println("Please enter Y or N:");
+			response = scan.next();
+		}
+		darkTheme = response.toUpperCase().equals("Y");
+		
+		System.out.print(darkTheme ? "\033[37m" : "\033[30m" + "\n"); // ANSI reset
+		System.out.println("   _____                            _     ______");
 		System.out.println("  / ____|                          | |   |  ____|              ");
 		System.out.println(" | |     ___  _ __  _ __   ___  ___| |_  | |__ ___  _   _ _ __ ");
 		System.out.println(" | |    / _ \\| '_ \\| '_ \\ / _ \\/ __| __| |  __/ _ \\| | | | '__|");
@@ -92,15 +102,6 @@ public class ConnectFourGame {
 		player1 = new ConnectFourPlayer(grid, Checker.PLAYER1);
 		System.out.println();
 		player2 = new ConnectFourPlayer(grid, Checker.PLAYER2);
-		
-		/* Dark theme option */
-		System.out.println("\nAre you playing on dark theme? Enter Y or N:");
-		String response = scan.next();
-		while (!"YN".contains(response.toUpperCase())) {
-			System.out.println("Please enter Y or N:");
-			response = scan.next();
-		}
-		darkTheme = response.toUpperCase().equals("Y");
 		
 		System.out.println("\nLet the game begin!\n");
 		System.out.println(grid);

@@ -10,7 +10,7 @@ public class ConnectFourGrid {
 	 * Checker implementation.
 	 */
 	public enum Checker {
-		EMPTY(-1), PLAYER1(-1), PLAYER2(-1);
+		EMPTY, PLAYER1, PLAYER2;
 		
 		/**
 		 * The string displayed for the checker on the grid.
@@ -20,14 +20,14 @@ public class ConnectFourGrid {
 		/**
 		 * Used to keep track of chosen colors.
 		 */
-		private static boolean black, red, green, yellow, blue, magenta, cyan, white;
+		private static boolean red, green, yellow, blue, magenta, cyan;
 		
 		/**
 		 * Constructor for checkers.
 		 * @param color The color used by default.
 		 */
-		private Checker(int color) {
-			setColor(color);
+		private Checker() {
+			setColor(-1);
 		}
 		
 		/**
@@ -39,11 +39,11 @@ public class ConnectFourGrid {
 			if (color == -1) { // for empty checker
 				symbol = "\u2B55\u200A";
 				return true;
-			} else if (color == 0 && !black) {
-				symbol = "\033[30m\u2B24\u200A";
-				black = true;
-				System.out.println("Black chosen!");
-				return true;
+//			} else if (color == 0 && !black) {
+//				symbol = "\033[30m\u2B24\u200A";
+//				black = true;
+//				System.out.println("Black chosen!");
+//				return true;
 			} else if (color == 1 && !red) {
 				symbol = "\033[31m\u2B24\u200A";
 				red = true;
@@ -74,13 +74,13 @@ public class ConnectFourGrid {
 				cyan = true;
 				System.out.println("Cyan chosen!");
 				return true;
-			} else if (color == 7 && !white) {
-				symbol = "\033[37m\u2B24\u200A";
-				white = true;
-				System.out.println("White chosen!");
-				return true;
-			} else if (color > 7 || color < 0)
-				System.out.println("Invalid color! Please choose a number from 0 to 7.");
+//			} else if (color == 7 && !white) {
+//				symbol = "\033[37m\u2B24\u200A";
+//				white = true;
+//				System.out.println("White chosen!");
+//				return true;
+			} else if (color >= 7 || color <= 0)
+				System.out.println("Invalid color! Please choose a number from 1 to 6.");
 			else
 				System.out.println("Color already chosen! Please choose a different one:");
 			return false;
@@ -95,6 +95,7 @@ public class ConnectFourGrid {
 	}
 	
 	public Checker[][] grid;
+	private boolean[][] highlight;
 	private int width, height;
 	private int winner;
 	
@@ -115,6 +116,7 @@ public class ConnectFourGrid {
 				grid[i][j] = Checker.EMPTY;
 			}
 		}
+		highlight = new boolean[height][width];
 	}
 	
 	/**
@@ -169,6 +171,9 @@ public class ConnectFourGrid {
 	public void fourInARow(int row, int col) {
 		winner = 0; // stays 0 unless otherwise updated
 		
+		highlight = new boolean[height][width];
+		highlight[row][col] = true;
+		
 		int ogRow = row, ogCol = col, inRow = 1;
 		
 		/* Horizontal */
@@ -176,12 +181,14 @@ public class ConnectFourGrid {
 			col--;
 			while (col >= 0 && grid[row][col] == grid[ogRow][ogCol]) {
 				inRow++;
+				highlight[row][col] = true;
 				col--;
 			}
 			
 			col = ogCol +1;
 			while (col < grid[0].length && grid[row][col] == grid[ogRow][ogCol]) {
 				inRow++;
+				highlight[row][col] = true;
 				col++;
 			}
 		}
@@ -191,11 +198,14 @@ public class ConnectFourGrid {
 			// resets values
 			row = ogRow;
 			col = ogCol;
+			highlight = new boolean[height][width];
+			highlight[row][col] = true;
 			inRow = 1;
 			
 			row--;
 			while (row >= 0 && grid[row][col] == grid[ogRow][ogCol]) {
 				inRow++;
+				highlight[row][col] = true;
 				row--;
 			}
 			
@@ -207,12 +217,15 @@ public class ConnectFourGrid {
 			// resets values
 			row = ogRow;
 			col = ogCol;
+			highlight = new boolean[height][width];
+			highlight[row][col] = true;
 			inRow = 1;
 			
 			col--;
 			row--;
 			while (col >= 0 && row >= 0 && grid[row][col] == grid[ogRow][ogCol]) {
 				inRow++;
+				highlight[row][col] = true;
 				col--;
 				row--;
 			}
@@ -221,6 +234,7 @@ public class ConnectFourGrid {
 			row = ogRow +1;
 			while (col < grid[0].length && row < grid.length && grid[row][col] == grid[ogRow][ogCol]) {
 				inRow++;
+				highlight[row][col] = true;
 				col++;
 				row++;
 			}
@@ -231,12 +245,15 @@ public class ConnectFourGrid {
 			// resets values
 			row = ogRow;
 			col = ogCol;
+			highlight = new boolean[height][width];
+			highlight[row][col] = true;
 			inRow = 1;
 			
 			col--;
 			row++;
 			while (col >= 0 && row < grid.length && grid[row][col] == grid[ogRow][ogCol]) {
 				inRow++;
+				highlight[row][col] = true;
 				col--;
 				row++;
 			}
@@ -245,6 +262,7 @@ public class ConnectFourGrid {
 			row = ogRow -1;
 			while (col < grid[0].length && row >= 0 && grid[row][col] == grid[ogRow][ogCol]) {
 				inRow++;
+				highlight[row][col] = true;
 				col++;
 				row--;
 			}
@@ -257,6 +275,8 @@ public class ConnectFourGrid {
 			} else if (grid[ogRow][ogCol] == Checker.PLAYER2) {
 				winner = 2;
 			}
+		} else {
+			highlight = new boolean[height][width];
 		}
 	}
 	
@@ -278,8 +298,10 @@ public class ConnectFourGrid {
 		// prints out grid
 		for (int i = height - 1; i >= 0; i--) {
 			for (int j = 0; j < width; j++) {
-				ret += grid[i][j];
-				// changes color from white to black depending on dark theme setting
+				if (highlight[i][j])
+					ret += ConnectFourGame.darkTheme() ? "\033[37m\u2B24\u200A" : "\033[30m\u2B24\u200A";
+				else
+					ret += grid[i][j];
 				ret += ConnectFourGame.darkTheme() ? " \033[37m" : " \033[30m";
 			}
 			ret += "\n";
@@ -289,7 +311,7 @@ public class ConnectFourGrid {
 		for (int i = 0; i < width; i++) {
 			ret += (char) (65+i) + " ";
 		}
-		ret += "\n\033[39m";
+		ret += ConnectFourGame.darkTheme() ? "\033[37m\n" : "\033[30m\n";
 		
 		return ret;
 	}
