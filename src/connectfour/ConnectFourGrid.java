@@ -10,15 +10,80 @@ public class ConnectFourGrid {
 	 * Checker implementation.
 	 */
 	public enum Checker {
-		EMPTY("\u2B55\u200A"), PLAYER1("\033[31m\u2B24\u200A"), PLAYER2("\033[34m\u2B24\u200A");
+		EMPTY(-1), PLAYER1(-1), PLAYER2(-1);
 		
 		/**
 		 * The string displayed for the checker on the grid.
 		 */
-		private final String symbol;
+		private String symbol;
 		
-		private Checker(String symbol) {
-			this.symbol = symbol;
+		/**
+		 * Used to keep track of chosen colors.
+		 */
+		private static boolean black, red, green, yellow, blue, magenta, cyan, white;
+		
+		/**
+		 * Constructor for checkers.
+		 * @param color The color used by default.
+		 */
+		private Checker(int color) {
+			setColor(color);
+		}
+		
+		/**
+		 * Sets color for this checker if the color is not already picked.
+		 * @param color The color ID to use (corresponds with ANSI).
+		 * @return Whether this was successful.
+		 */
+		public boolean setColor(int color) {
+			if (color == -1) { // for empty checker
+				symbol = "\u2B55\u200A";
+				return true;
+			} else if (color == 0 && !black) {
+				symbol = "\033[30m\u2B24\u200A";
+				black = true;
+				System.out.println("Black chosen!");
+				return true;
+			} else if (color == 1 && !red) {
+				symbol = "\033[31m\u2B24\u200A";
+				red = true;
+				System.out.println("Red chosen!");
+				return true;
+			} else if (color == 2 && !green) {
+				symbol = "\033[32m\u2B24\u200A";
+				green = true;
+				System.out.println("Green chosen!");
+				return true;
+			} else if (color == 3 && !yellow) {
+				symbol = "\033[33m\u2B24\u200A";
+				yellow = true;
+				System.out.println("Yellow chosen!");
+				return true;
+			} else if (color == 4 && !blue) {
+				symbol = "\033[34m\u2B24\u200A";
+				blue = true;
+				System.out.println("Blue chosen!");
+				return true;
+			} else if (color == 5 && !magenta) {
+				symbol = "\033[35m\u2B24\u200A";
+				magenta = true;
+				System.out.println("Magenta chosen!");
+				return true;
+			} else if (color == 6 && !cyan) {
+				symbol = "\033[36m\u2B24\u200A";
+				cyan = true;
+				System.out.println("Cyan chosen!");
+				return true;
+			} else if (color == 7 && !white) {
+				symbol = "\033[37m\u2B24\u200A";
+				white = true;
+				System.out.println("White chosen!");
+				return true;
+			} else if (color > 7 || color < 0)
+				System.out.println("Invalid color! Please choose a number from 0 to 7.");
+			else
+				System.out.println("Color already chosen! Please choose a different one:");
+			return false;
 		}
 		
 		/**

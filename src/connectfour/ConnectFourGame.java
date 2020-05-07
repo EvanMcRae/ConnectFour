@@ -34,6 +34,7 @@ public class ConnectFourGame {
 	 * General constructor for the Connect Four game.
 	 */
 	public ConnectFourGame() {
+		System.out.print("\u001b[0m"); // ANSI reset
 		System.out.println("  / ____|                          | |   |  ____|              ");
 		System.out.println(" | |     ___  _ __  _ __   ___  ___| |_  | |__ ___  _   _ _ __ ");
 		System.out.println(" | |    / _ \\| '_ \\| '_ \\ / _ \\/ __| __| |  __/ _ \\| | | | '__|");
@@ -89,6 +90,7 @@ public class ConnectFourGame {
 		
 		/* Player creation */
 		player1 = new ConnectFourPlayer(grid, Checker.PLAYER1);
+		System.out.println();
 		player2 = new ConnectFourPlayer(grid, Checker.PLAYER2);
 		
 		/* Dark theme option */

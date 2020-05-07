@@ -38,6 +38,19 @@ public class ConnectFourPlayer {
 			System.out.print("Player 2: ");
 		System.out.println("What's your name?");
 		String name = scan.nextLine();
+		System.out.println("Hi, " + name + "! What checker color would you like to use?");
+		System.out.println("\u001b[30m0 \u001b[31m1 \u001b[32m2 \u001b[33m3 \u001b[34m4 \u001b[35m5 \u001b[36m6 \u001b[37m7\u001b[0m");
+		int color = -1;
+		boolean success = false;
+		do {
+			try {
+				color = scan.nextInt();
+				success = checker.setColor(color);
+			} catch (java.util.InputMismatchException e) {
+				System.out.println("Invalid color! Please enter a number from 0 to 7:");
+			}
+		} while (!success);
+			
 		this.name = name;
 		this.grid = grid;
 		this.checker = checker;
