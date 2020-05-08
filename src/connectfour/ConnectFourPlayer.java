@@ -39,7 +39,10 @@ public class ConnectFourPlayer {
 		System.out.println("What's your name?");
 		String name = scan.nextLine();
 		System.out.println("Hi, " + name + "! What checker color would you like to use?");
-		System.out.print("\u001b[31m1 \u001b[32m2 \u001b[33m3 \u001b[34m4 \u001b[35m5 \u001b[36m6");
+		if (ConnectFourGame.darkTheme())
+			System.out.print("\u001b[31m1 \u001b[32m2 \u001b[33m3 \u001b[34m4 \u001b[35m5 \u001b[36m6");
+		else
+			System.out.print("\u001b[91m1 \u001b[92m2 \u001b[93m3 \u001b[94m4 \u001b[95m5 \u001b[96m6");
 		System.out.println(ConnectFourGame.darkTheme() ? "\033[37m" : "\033[30m");
 		int color = -1;
 		boolean success = false;

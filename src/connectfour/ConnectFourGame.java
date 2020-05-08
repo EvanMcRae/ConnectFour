@@ -97,6 +97,7 @@ public class ConnectFourGame {
 		System.out.println();
 		
 		/* Player creation */
+		Checker.reset();
 		player1 = new ConnectFourPlayer(grid, Checker.PLAYER1);
 		System.out.println();
 		player2 = new ConnectFourPlayer(grid, Checker.PLAYER2);
@@ -133,9 +134,10 @@ public class ConnectFourGame {
 			System.out.println("Please enter Y or N:");
 			response = scan.next();
 		}
-		if (response.toUpperCase().equals("Y"))
+		if (response.toUpperCase().equals("Y")) {
 			initialize();
-		else
+			start();
+		} else
 			System.out.println("Thanks for playing!");
 	}
 	
