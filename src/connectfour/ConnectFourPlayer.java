@@ -9,27 +9,28 @@ import connectfour.ConnectFourGrid.Checker;
  */
 public class ConnectFourPlayer {
 	
-	private String name;
+	protected String name;
 	protected ConnectFourGrid grid;
-	private Checker checker;
+	protected Checker checker;
 	private final Scanner scan = new Scanner(System.in);
 	
 	/**
-	 * Constructor for players with a name automatically provided.
+	 * Constructor for players with a name/checker color automatically provided.
 	 * @param name The player's name.
 	 * @param grid The active instance of grid.
-	 * @param check The player's checker.
+	 * @param checker The player's checker.
 	 */
 	public ConnectFourPlayer(String name, ConnectFourGrid grid, Checker checker) {
 		this.name = name;
 		this.grid = grid;
 		this.checker = checker;
+		this.checker.randomColor();
 	}
 	
 	/**
-	 * Constructor for players with a name given as text input.
+	 * Constructor for players with a name/checker color given as text input.
 	 * @param grid The active instance of grid.
-	 * @param check The player's checker.
+	 * @param checker The player's checker.
 	 */
 	public ConnectFourPlayer(ConnectFourGrid grid, Checker checker) {
 		if (checker == Checker.PLAYER1)

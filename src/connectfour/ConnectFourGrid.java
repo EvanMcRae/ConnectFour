@@ -69,6 +69,39 @@ public class ConnectFourGrid {
 		}
 		
 		/**
+		 * Sets random available color for this checker.
+		 */
+		public void randomColor() {
+			int color = (int) (Math.random() * 6) + 1;
+			if (color == 1 && !red) {
+				symbol = (ConnectFourGame.darkTheme() ? "\033[31m" : "\033[91m") + "\u2B24\u200A";
+				red = true;
+				System.out.println("Red chosen!");
+			} else if (color == 2 && !green) {
+				symbol = (ConnectFourGame.darkTheme() ? "\033[32m" : "\033[92m") + "\u2B24\u200A";
+				green = true;
+				System.out.println("Green chosen!");
+			} else if (color == 3 && !yellow) {
+				symbol = (ConnectFourGame.darkTheme() ? "\033[33m" : "\033[93m") + "\u2B24\u200A";
+				yellow = true;
+				System.out.println("Yellow chosen!");
+			} else if (color == 4 && !blue) {
+				symbol = (ConnectFourGame.darkTheme() ? "\033[34m" : "\033[94m") + "\u2B24\u200A";
+				blue = true;
+				System.out.println("Blue chosen!");
+			} else if (color == 5 && !magenta) {
+				symbol = (ConnectFourGame.darkTheme() ? "\033[35m" : "\033[95m") + "\u2B24\u200A";
+				magenta = true;
+				System.out.println("Magenta chosen!");
+			} else if (color == 6 && !cyan) {
+				symbol = (ConnectFourGame.darkTheme() ? "\033[36m" : "\033[96m") + "\u2B24\u200A";
+				cyan = true;
+				System.out.println("Cyan chosen!");
+			} else
+				randomColor();
+		}
+		
+		/**
 		 * Outputs symbol for checker.
 		 */
 		public String toString() {
@@ -279,6 +312,20 @@ public class ConnectFourGrid {
 	 */
 	public int getWinner() {
 		return winner;
+	}
+	
+	/**
+	 * @return The width of this grid.
+	 */
+	public int getWidth() {
+		return width;
+	}
+	
+	/**
+	 * @return The height of this grid.
+	 */
+	public int getHeight() {
+		return height;
 	}
 	
 	/**

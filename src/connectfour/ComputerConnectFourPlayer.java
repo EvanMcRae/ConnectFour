@@ -18,11 +18,19 @@ public class ComputerConnectFourPlayer extends ConnectFourPlayer {
 	}
 	
 	/**
-	 * Allows computer player to place down a checker.
+	 * Allows computer player to place down a checker depending on the current grid.
 	 * TODO this is where all AI calculation stuff should go. use grid.grid to traverse grid array
 	 */
 	public void play() {
-		
+		// TODO replace with proper strategy. for now random placement is used
+		int col = (int) (Math.random()*grid.getWidth()) + 1;
+		int row = grid.placeChecker(checker, col);
+		if (row == -1) {
+			play();
+		} else {
+			System.out.println(name + " placed a checker at column " + (char) (col+64) + "!");
+			System.out.println(grid.toString());
+		}
 	}
 	
 }

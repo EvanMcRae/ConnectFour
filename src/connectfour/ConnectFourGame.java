@@ -14,21 +14,8 @@ public class ConnectFourGame {
 	private ConnectFourGrid grid;
 	
 	private final Scanner scan = new Scanner(System.in);
-	private static boolean darkTheme;
-	
-	/**
-	 * Testing constructor for the Connect Four game.
-	 * @param width The width of the grid.
-	 * @param height The height of the grid.
-	 * @param player1Name The name of player 1.
-	 * @param player2Name The name of player 2.
-	 */
-	public ConnectFourGame(int width, int height, String player1Name, String player2Name) {
-		grid = new ConnectFourGrid(width, height);
-		player1 = new ConnectFourPlayer(player1Name, grid, Checker.PLAYER1);
-		player2 = new ConnectFourPlayer(player2Name, grid, Checker.PLAYER2);
-		darkTheme = true; // by default :)
-	}
+	private static boolean darkTheme = true; // by default :)
+	private boolean twoPlayers = true;
 	
 	/**
 	 * General constructor for the Connect Four game.
@@ -59,7 +46,7 @@ public class ConnectFourGame {
 	/**
 	 * Allows user to input grid size, player names, and other options.
 	 */
-	public void initialize() {
+	public void initialize() {		
 		/* Grid creation */
 		System.out.println("\nWhat size grid would you like to play on?\nEnter a number for the width (maximum: 26):");
 		int width = -1;
@@ -96,11 +83,20 @@ public class ConnectFourGame {
 		grid = new ConnectFourGrid(width, height);
 		System.out.println();
 		
-		/* Player creation */
+		/* Computer player option */
+		System.out.println("Are you playing with two players? Enter Y to play with two players or N to play against the computer:");
+		String response = scan.next();
+		while (!"YN".contains(response.toUpperCase())) {
+			System.out.println("Please enter Y or N:");
+			response = scan.next();
+		}
+		twoPlayers = response.toUpperCase().equals("Y");
+		
+		/* Player creation (supports computer player) */
 		Checker.reset();
 		player1 = new ConnectFourPlayer(grid, Checker.PLAYER1);
-		System.out.println();
-		player2 = new ConnectFourPlayer(grid, Checker.PLAYER2);
+		System.out.println(twoPlayers ? "" : "\nComputer: ");
+		player2 = twoPlayers ? new ConnectFourPlayer(grid, Checker.PLAYER2) : new ComputerConnectFourPlayer(grid, Checker.PLAYER2);
 		
 		System.out.println("\nLet the game begin!\n");
 		System.out.println(grid);
