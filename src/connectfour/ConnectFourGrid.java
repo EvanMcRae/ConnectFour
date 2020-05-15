@@ -1,5 +1,7 @@
 package connectfour;
 
+import connectfour.ConnectFourGrid.Checker;
+
 /**
  * A class for a grid of Checkers with a set width and height.
  */
@@ -150,6 +152,29 @@ public class ConnectFourGrid {
 	 * @param col The column to place the checker at.
 	 * @return The row the checker was placed at (-1 if failed).
 	 */
+	
+	//THIS IS A TEST METHOD FOR COMPUTER CONNECT FOUR
+	public int checkPosition(int row, int col){
+		//The actual row index is 1 less than the returned row
+		row--;
+		
+		if(col > 1) {
+			if(grid[row][col-2] == Checker.EMPTY) {
+				return col-1;
+			}
+		}
+		if(col < width-1) {
+			if(grid[row][col] == Checker.EMPTY) {
+				return col+1;
+			}
+		}
+		if(row < height-1) {
+			if(grid[row+1][col-1] == Checker.EMPTY) {
+				return col;
+			}
+		}
+		return -1;
+	}
 	public int placeChecker(Checker checker, int col) {
 		// checks for invalid column
 		if (col > width || col-1 < 0) {
